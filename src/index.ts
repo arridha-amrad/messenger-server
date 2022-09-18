@@ -5,15 +5,15 @@ import { connectToDB } from './utils/db';
 const port = config.PORT;
 
 const startServer = async (): Promise<void> => {
-    const app = createServer();
+   const app = createServer();
 
-    await connectToDB();
+   await connectToDB();
 
-    app.listen(port);
+   app.listen(port);
 };
 
 startServer()
-    .then(() => {
-        console.log(`express server is running from port : ${port}`);
-    })
-    .catch((err) => console.log('failed to run server : ', err));
+   .then(() => {
+      console.log(`express server is running from port : ${port}`);
+   })
+   .catch((err) => console.log('failed to run server : ', err));
