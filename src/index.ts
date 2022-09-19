@@ -6,14 +6,16 @@ const port = config.PORT;
 
 const startServer = async (): Promise<void> => {
    const app = createServer();
-
    await connectToDB();
-
    app.listen(port);
 };
 
 startServer()
    .then(() => {
-      console.log(`express server is running from port : ${port}`);
+      console.info({
+         status: 'server is running',
+         port: `${port}`,
+         env: `${config.NODE_ENV}`,
+      });
    })
    .catch((err) => console.log('failed to run server : ', err));

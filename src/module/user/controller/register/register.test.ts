@@ -22,6 +22,11 @@ afterAll(async () => {
 });
 
 describe('register controller', () => {
+   // email: 'dev.with.ari@gmail.com',
+   // username: 'dev_with_ari_08',
+   // password: 'Ok123blabla',
+   // firstname: 'Dev',
+   // lastname: 'Ari',
    const mainBody = {
       email: faker.internet.email(),
       username: faker.internet.userName().toLowerCase().replace(/\./g, '_'),

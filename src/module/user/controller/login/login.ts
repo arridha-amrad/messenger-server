@@ -32,22 +32,24 @@ const login = async (
    try {
       const user = await findUser(identity);
       if (user === null) {
-         res.status(404).send('User not found');
+         res.status(404).json({ error: 'user not found' });
          return;
       }
       if (!user.isVerified) {
-         res.status(400).send('Please verify your email before login');
+         res.status(400).json({
+            error: 'please verify your email before login',
+         });
          return;
       }
       if (user.strategy !== 'default') {
-         res.status(400).send(
-            'This account is registered with different strategy'
-         );
+         res.status(400).json({
+            error: 'this account is registered with different strategy',
+         });
          return;
       }
       const isMatch = await verify(user.password, password);
       if (!isMatch) {
-         res.status(400).send('Password not match');
+         res.status(400).json({ error: 'password not match' });
          return;
       }
       const authToken = await createToken(user.id, 'auth');

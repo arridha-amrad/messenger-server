@@ -9,8 +9,8 @@ export const setCookieOptions: CookieOptions = {
    secure: config.NODE_ENV === ENV_ENUM.prod,
 };
 
-export const getRefreshTokenFromCookie = (req: Request): String | undefined => {
-   const bearerToken = req.cookies.refreshToken as string | undefined;
+export const getRefreshTokenFromCookie = (req: Request): string | undefined => {
+   const bearerToken = req.cookies.token as string | undefined;
    if (typeof bearerToken === 'string') {
       return bearerToken.split(' ')[1];
    }

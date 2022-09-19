@@ -20,7 +20,7 @@ router.get('/email-verification/:token', emailVerification);
 router.post('/login', login);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
-router.post('/logout', logout);
+router.get('/logout', logout);
 router.get('/google', googleOAuth);
 router.get('/refresh-token', refreshToken);
 export default router;

@@ -17,10 +17,7 @@ export const connectToDB = async (): Promise<void> => {
             url = config.PROD_DB_URL;
             break;
       }
-
       await mongoose.connect(url);
-
-      console.log('connected to mongoDB');
    } catch (err) {
       process.exit(1);
    }

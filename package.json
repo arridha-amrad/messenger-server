@@ -4,7 +4,7 @@
    "description": "",
    "main": "build/index.js",
    "scripts": {
-      "test": "export NODE_ENV=test && jest forgotPassword.test.ts",
+      "test": "export NODE_ENV=test && jest refreshToken.test.ts",
       "dev": "export NODE_ENV=dev && tsx watch src",
       "start": "export NODE_ENV=prod && node build",
       "build": "tsc --project tsconfig.build.json",

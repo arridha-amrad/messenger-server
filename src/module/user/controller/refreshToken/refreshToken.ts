@@ -13,13 +13,13 @@ const refreshToken = async (
    next: NextFunction
 ): Promise<void> => {
    const refreshToken = getRefreshTokenFromCookie(req);
-   if (refreshToken === undefined) {
-      res.status(403).send('ref token was not included');
+   if (typeof refreshToken === 'undefined') {
+      res.status(403).json({ error: 'ref token was not included' });
       return;
    }
    try {
       const { userId, type } = await verifyToken(refreshToken, 'refresh');
-      if (type === 'refresh') {
+      if (type !== 'refresh') {
          res.status(403).json({ error: 'token invalid' });
          return;
       }
@@ -31,7 +31,7 @@ const refreshToken = async (
             hackedUser.tokens = [];
             await hackedUser.save();
          }
-         res.status(403).send('reuse detected');
+         res.status(403).json({ error: 'reuse detected' });
          return;
       }
       const newRefreshTokens = user.tokens.filter((rt) => rt !== refreshToken);
