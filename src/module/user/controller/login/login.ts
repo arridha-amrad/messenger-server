@@ -1,9 +1,9 @@
 import { config } from '@utils/config';
 import { createToken } from '@utils/token/token';
 import { ILoginDTO } from '@user-module/user.types';
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
-import { removeToken, findUser } from '@user-module/user.services';
+import { removeToken, findUser, save } from '@user-module/user.services';
 import {
    getRefreshTokenFromCookie,
    setCookieOptions,
@@ -11,11 +11,7 @@ import {
 import { validateLogin } from '@user-module/user.validator';
 import { verify } from 'argon2';
 
-const login = async (
-   req: Request,
-   res: Response,
-   next: NextFunction
-): Promise<void> => {
+const login = async (req: Request, res: Response): Promise<void> => {
    const currentRefToken = getRefreshTokenFromCookie(req);
    if (currentRefToken !== undefined) {
       await removeToken(currentRefToken);
@@ -55,12 +51,12 @@ const login = async (
       const authToken = await createToken(user.id, 'auth');
       const refreshToken = await createToken(user.id, 'refresh');
       user.tokens.push(refreshToken);
-      await user.save();
+      await save(user);
       const loginUser = {
-         _id: user.id,
+         id: user.id,
          username: user.username,
          email: user.email,
-         fullName: user.fullName,
+         fullname: user.fullname,
          imageURL: user.imageURL,
       };
       const bearerAuthToken = `Bearer ${authToken}`;
@@ -73,7 +69,7 @@ const login = async (
          });
       return;
    } catch (err) {
-      next(err);
+      res.sendStatus(500);
    }
 };
 

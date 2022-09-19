@@ -1,3 +1,17 @@
+import { STRATEGY } from './user.model';
+
+export interface IUser {
+   id: string;
+   email: string;
+   username: string;
+   password: string;
+   strategy: STRATEGY;
+   isVerified: boolean;
+   tokens: string[];
+   fullname: string;
+   imageURL: string;
+}
+
 export interface IRegisterDTO {
    firstname: string;
    lastname: string;

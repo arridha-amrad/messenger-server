@@ -1,22 +1,21 @@
 import { config } from '@utils/config';
-import { IUserModel, IUserModelDocument, UserModel } from './user.model';
-import { GoogleTokensResult, GoogleUserResult } from './user.types';
+import { GoogleTokensResult, GoogleUserResult, IUser } from './user.types';
 import axios from 'axios';
 import qs from 'qs';
+import UserModel from './user.model';
 
-export const save = async (data: IUserModel): Promise<IUserModelDocument> => {
+export const save = async (data: Partial<IUser>): Promise<IUser> => {
    const user = new UserModel(data);
    try {
       const newUser = await user.save();
       return newUser;
    } catch (err) {
+      console.log(err);
       throw new Error('Saving user failure');
    }
 };
 
-export const findUser = async (
-   query: string
-): Promise<IUserModelDocument | null> => {
+export const findUser = async (query: string): Promise<IUser | null> => {
    try {
       const user = await UserModel.findOne(
          query.includes('@')
@@ -33,9 +32,7 @@ export const findUser = async (
    }
 };
 
-export const findUserById = async (
-   userId: string
-): Promise<IUserModelDocument | null> => {
+export const findUserById = async (userId: string): Promise<IUser | null> => {
    try {
       const user = await UserModel.findById(userId);
       return user;
@@ -46,8 +43,8 @@ export const findUserById = async (
 
 export const findUserByIdAndUpdate = async (
    userId: string,
-   update: Partial<IUserModel>
-): Promise<IUserModelDocument | null> => {
+   update: Partial<IUser>
+): Promise<IUser | null> => {
    try {
       const user = await UserModel.findByIdAndUpdate(userId, update, {
          new: true,
@@ -58,9 +55,7 @@ export const findUserByIdAndUpdate = async (
    }
 };
 
-export const findUserByToken = async (
-   token: string
-): Promise<IUserModelDocument | null> => {
+export const findUserByToken = async (token: string): Promise<IUser | null> => {
    try {
       const user = await UserModel.findOne({
          tokens: token,

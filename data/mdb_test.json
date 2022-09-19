@@ -1,0 +1,118 @@
+[{
+  "_id": {
+    "$oid": "6326e89a59bf5cf8bbf5e936"
+  },
+  "email": "xxx.xxx.test@test.test",
+  "username": "alexdoe",
+  "password": "$argon2id$v=19$m=4096,t=3,p=1$a9s9aq0K6V3AdV1ercSxBQ$/NfXin/OHRXIaCW9j6ceFkC/iA/LczuyQcBFxIhvCNo",
+  "strategy": "default",
+  "isVerified": false,
+  "tokens": [],
+  "imageURL": "-",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663494298158"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663494298158"
+    }
+  },
+  "__v": 0,
+  "fullname": "Katelin Quitzon"
+},{
+  "_id": {
+    "$oid": "6326e9e7b230a3e206f83e9a"
+  },
+  "email": "xxx.xxx.test12@test.test",
+  "username": "alexdoe12",
+  "password": "$argon2id$v=19$m=4096,t=3,p=1$VXE/pJwksNFl/agvsw/pCQ$DxEJc/+O5hOpNJIZQHu9zBoFfr13HudmpOJJebLUKk4",
+  "strategy": "default",
+  "isVerified": true,
+  "tokens": [],
+  "imageURL": "-",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663494631171"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663494631171"
+    }
+  },
+  "__v": 0,
+  "fullname": "Ara Nicolas"
+},{
+  "_id": {
+    "$oid": "6326ea3ff0a95c3b337bccea"
+  },
+  "email": "Clifford_Durgan@google.com",
+  "username": "monserrat91",
+  "password": "$argon2id$v=19$m=4096,t=3,p=1$e9H/SLUKdXvQPxz3RtoN5g$G0h+ZGvLjLWZ/C7q0MeDZswFtJ2WQjOdhGtgcalHkTw",
+  "strategy": "google",
+  "isVerified": true,
+  "tokens": [],
+  "imageURL": "-",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663494719134"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663494719134"
+    }
+  },
+  "__v": 0,
+  "fullname": "Alvera Beahan"
+},{
+  "_id": {
+    "$oid": "632820d2e912927de21cf2a8"
+  },
+  "email": "dev.with.ari@gmail.com",
+  "username": "dev_with_ari_08",
+  "password": "$argon2id$v=19$m=4096,t=3,p=1$GpNMF0mVTJJ4cYp34S0J8g$iOMuZhC1r96LEHylOAD51eJjNUAFB45KrgtoWUiYVtk",
+  "strategy": "default",
+  "isVerified": true,
+  "tokens": [
+    "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzI4MjBkMmU5MTI5MjdkZTIxY2YyYTgiLCJ0eXBlIjoicmVmcmVzaCIsImlhdCI6MTY2MzYxMjE4MiwiZXhwIjoxNjYzNjk4NTgyfQ.KCfHlgFzrdPflY7U-0hU80merJpl0Me7WBhlPwVUs2lX8PehC5KpD5D-00rd0DWjWb36d5bFW9KfNmPXUh44Gtfv5DTjpTF07yrO_7Glq55zo4jgdpKmePAUXrjJuTvhQ0fj33x9dq5oMlUfWwzjl0ZJbTsALa27rLuTw0r1Vlw"
+  ],
+  "imageURL": "-",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663574226150"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663612182796"
+    }
+  },
+  "__v": 16,
+  "fullname": "Dev Ari"
+},{
+  "_id": {
+    "$oid": "6328a851545fdf211b9ebcfe"
+  },
+  "email": "Gavin0@gmail.com",
+  "fullname": "Meggie Jacobson",
+  "imageURL": "default",
+  "isVerified": false,
+  "password": "$argon2id$v=19$m=4096,t=3,p=1$CzzQ/JraZqIfBh5UpmIUKw$/vhrVYwI+FRmSAcopzf+LqSrjrcYxS5n3elubGMV6zM",
+  "strategy": "default",
+  "tokens": [],
+  "username": "boris_rutherford",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1663608913827"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1663608913827"
+    }
+  },
+  "__v": 0
+}]

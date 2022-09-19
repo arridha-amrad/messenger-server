@@ -87,12 +87,6 @@ describe('Refresh Token route', () => {
       const response = await superTest
          .get('/api/user/refresh-token')
          .set('Cookie', [`token=${loginRefToken}`]);
-      const newRefToken = response.header['set-cookie'][0]
-         .split(';')[0]
-         .split('=')[1];
-
-      console.log('newRefToken : ', newRefToken);
-
       expect(response.statusCode).toBe(200);
       expect(response.body).toMatchObject({
          token: expect.stringContaining('Bearer'),

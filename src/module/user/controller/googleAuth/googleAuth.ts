@@ -36,11 +36,9 @@ const googleOAuth = async (req: Request, res: Response): Promise<void> => {
       if (user === null) {
          const newUser = await save({
             password: '',
-            fullName: `${given_name} ${family_name}`,
+            fullname: `${given_name} ${family_name}`,
             username: name.split(' ').join(''),
             email,
-            imageURL: '-',
-            tokens: [],
             isVerified: true,
             strategy: STRATEGY.google,
          });
@@ -50,7 +48,7 @@ const googleOAuth = async (req: Request, res: Response): Promise<void> => {
       }
       const refreshToken = await createToken(myUser.id, 'refresh');
       myUser.tokens.push(refreshToken);
-      await myUser.save();
+      await save(myUser);
       const bearerRefToken = `Bearer ${refreshToken}`;
       res.cookie(config.REF_COOKIE_NAME, bearerRefToken, setCookieOptions);
       res.redirect(config.CLIENT_ORIGIN);

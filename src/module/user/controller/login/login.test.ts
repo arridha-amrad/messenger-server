@@ -69,7 +69,7 @@ describe('Login route', () => {
    it('should return with status code 400 when user found but not verified', async () => {
       const body = {
          ...mainBody,
-         identity: 'Bernardo30@gmail.com',
+         identity: 'alexdoe',
       };
       const response = await request(app).post('/api/user/login').send(body);
       expect(response.statusCode).toBe(400);
@@ -119,10 +119,10 @@ describe('Login route', () => {
       expect(response.body).toMatchObject({
          token: expect.any(String),
          user: expect.objectContaining({
-            _id: expect.any(String),
+            id: expect.any(String),
             username: expect.any(String),
             email: expect.any(String),
-            fullName: expect.any(String),
+            fullname: expect.any(String),
             imageURL: expect.any(String),
          }),
       });

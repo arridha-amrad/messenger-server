@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 import {
    findUserById,
@@ -9,8 +9,7 @@ import { verifyToken } from '@utils/token/token';
 
 const emailVerification = async (
    req: Request,
-   res: Response,
-   next: NextFunction
+   res: Response
 ): Promise<void> => {
    const { token } = req.params;
    try {
@@ -36,8 +35,7 @@ const emailVerification = async (
       );
       return;
    } catch (err) {
-      console.log(err);
-      next(err);
+      res.sendStatus(500);
    }
 };
 

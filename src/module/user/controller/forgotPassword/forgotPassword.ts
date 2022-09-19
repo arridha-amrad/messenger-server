@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 
 import writeEmail, { EMAIL_TYPE } from '@root/utils/writeEmail';
 import { STRATEGY } from '@user-module/user.model';
@@ -7,11 +7,7 @@ import { validateEmail } from '@user-module/user.validator';
 import sendEmail from '@utils/sendMail';
 import { createToken } from '@utils/token/token';
 
-const forgotPassword = async (
-   req: Request,
-   res: Response,
-   next: NextFunction
-): Promise<void> => {
+const forgotPassword = async (req: Request, res: Response): Promise<void> => {
    const email = req.body.email as string;
    const { errors, valid } = validateEmail(email);
    if (!valid) {
@@ -46,7 +42,7 @@ const forgotPassword = async (
       });
       return;
    } catch (err) {
-      next(err);
+      res.sendStatus(500);
    }
 };
 

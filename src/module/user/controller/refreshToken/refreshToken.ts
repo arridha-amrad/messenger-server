@@ -1,17 +1,17 @@
 import { config } from '@utils/config';
 import { createToken, verifyToken } from '@utils/token/token';
-import { Request, Response, NextFunction } from 'express';
-import { findUserById, findUserByToken } from '@user-module/user.services';
+import { Request, Response } from 'express';
+import {
+   findUserById,
+   findUserByToken,
+   save,
+} from '@user-module/user.services';
 import {
    getRefreshTokenFromCookie,
    setCookieOptions,
 } from '@utils/cookies/cookie';
 
-const refreshToken = async (
-   req: Request,
-   res: Response,
-   next: NextFunction
-): Promise<void> => {
+const refreshToken = async (req: Request, res: Response): Promise<void> => {
    const refreshToken = getRefreshTokenFromCookie(req);
    if (typeof refreshToken === 'undefined') {
       res.status(403).json({ error: 'ref token was not included' });
@@ -29,7 +29,7 @@ const refreshToken = async (
          const hackedUser = await findUserById(userId);
          if (hackedUser !== null) {
             hackedUser.tokens = [];
-            await hackedUser.save();
+            await save(hackedUser);
          }
          res.status(403).json({ error: 'reuse detected' });
          return;
@@ -38,7 +38,7 @@ const refreshToken = async (
       const newRefreshToken = await createToken(user.id, 'refresh');
       const newAuthToken = await createToken(user.id, 'auth');
       user.tokens = [...newRefreshTokens, newRefreshToken];
-      await user.save();
+      await save(user);
       res.status(200)
          .cookie(
             config.REF_COOKIE_NAME,
@@ -48,7 +48,7 @@ const refreshToken = async (
          .json({ token: `Bearer ${newAuthToken}` });
       return;
    } catch (err) {
-      next(err);
+      res.sendStatus(500);
    }
 };
 
