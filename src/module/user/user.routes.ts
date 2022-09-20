@@ -3,15 +3,18 @@
 import { Router } from 'express';
 
 import {
-   emailVerification,
-   forgotPassword,
-   googleOAuth,
-   login,
-   logout,
-   refreshToken,
-   register,
-   resetPassword,
+  emailVerification,
+  forgotPassword,
+  googleOAuth,
+  login,
+  logout,
+  me,
+  refreshToken,
+  register,
+  resetPassword,
 } from './controller/export.user.controller';
+
+import { verifyAuthToken } from '@utils/token/token';
 
 const router = Router();
 
@@ -23,4 +26,5 @@ router.post('/reset-password/:token', resetPassword);
 router.get('/logout', logout);
 router.get('/google', googleOAuth);
 router.get('/refresh-token', refreshToken);
+router.get('/me', verifyAuthToken, me);
 export default router;
