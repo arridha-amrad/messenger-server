@@ -2,18 +2,20 @@
 import { verifyAuthToken } from '@utils/token/token';
 
 import { Router } from 'express';
-import { sendMessage } from './controller/chat.controller.export';
+import {
+  getRooms,
+  openRoom,
+  sendMessage,
+} from './controller/chat.controller.export';
 
 const router = Router();
 
-// get room
-router.get('/room/:roomId');
+router.get('/room/:roomId', verifyAuthToken, openRoom);
 
-// get rooms
-router.get('/rooms');
+router.get('/rooms', verifyAuthToken, getRooms);
 
-// send message
 router.post('/message', verifyAuthToken, sendMessage);
+
 router.delete('/message/:messageId');
 
 export default router;

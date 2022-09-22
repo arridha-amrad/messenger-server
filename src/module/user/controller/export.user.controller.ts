@@ -7,3 +7,4 @@ export { default as resetPassword } from './resetPassword/resetPassword';
 export { default as refreshToken } from './refreshToken/refreshToken';
 export { default as googleOAuth } from './googleAuth/googleAuth';
 export { default as me } from './me/me';
+export { default as searchUser } from './search/search';

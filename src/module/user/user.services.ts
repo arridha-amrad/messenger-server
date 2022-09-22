@@ -49,6 +49,21 @@ export const findUser = async (query: string): Promise<IUser | null> => {
   }
 };
 
+export const searchUser = async (query: string): Promise<IUser[]> => {
+  try {
+    const users = await UserModel.find({
+      $or: [
+        { username: { $regex: query, $options: 'i' } },
+        { fullname: { $regex: query, $options: 'i' } },
+      ],
+    }).select('username _id imageURL fullname');
+    return users;
+  } catch (err) {
+    console.log(err);
+    throw new Error('find users error');
+  }
+};
+
 export const findUserById = async (userId: string): Promise<IUser | null> => {
   try {
     const user = await UserModel.findById(userId);

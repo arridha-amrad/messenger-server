@@ -1,5 +1,12 @@
 import { STRATEGY } from './user.model';
 
+export interface ISearchResult {
+  _id: string;
+  username: string;
+  fullname: string;
+  imageURL: string;
+}
+
 export interface IUserData {
   id: string;
   username: string;

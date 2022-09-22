@@ -1,4 +1,4 @@
-import 'dotenv';
+import morgan from 'morgan';
 
 import cookieParser from 'cookie-parser';
 import express from 'express';
@@ -11,6 +11,7 @@ export const createServer = (): express.Express => {
 
   app.use(express.json());
   app.use(cookieParser());
+  app.use(morgan('dev'));
 
   app.use('/api/user', UserRoutes);
   app.use('/api/chat', ChatRoutes);

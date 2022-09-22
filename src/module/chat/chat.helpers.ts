@@ -1,6 +1,6 @@
 import { createServer } from '@root/app';
 import { config } from '@root/utils/config';
-import { connectToDB } from '@root/utils/db';
+import { connectToDB, disconnectDB } from '@root/utils/db';
 import { Server } from 'http';
 import request, { SuperTest, Test } from 'supertest';
 
@@ -25,4 +25,9 @@ export const prepareTest = async (): Promise<IPrepareTest> => {
     token,
     supertest,
   };
+};
+
+export const closeTest = async (server: Server): Promise<void> => {
+  await disconnectDB();
+  server.close();
 };

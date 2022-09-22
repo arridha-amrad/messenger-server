@@ -1,6 +1,25 @@
-import { IMessage, IMessageDoc, IRoom, IRoomDoc } from './chat.types';
+import {
+  IMessage,
+  IMessageDoc,
+  IRoom,
+  IRoomDoc,
+  IRoomExtended,
+} from './chat.types';
 import MessageModel from './models/message.model';
 import Room from './models/room.model';
+
+export const findMessages = async (roomId: string): Promise<IMessage[]> => {
+  try {
+    const messages = await MessageModel.find({ room: roomId }).populate({
+      path: 'sender',
+      select: 'username imageURL',
+    });
+    return messages;
+  } catch (err) {
+    console.log(err);
+    throw new Error('find messages failure');
+  }
+};
 
 export const populatedRoom = async (
   roomId: string
@@ -18,6 +37,46 @@ export const populatedRoom = async (
   } catch (err) {
     console.log(err);
     throw new Error('populated room error');
+  }
+};
+
+export const populateMessage = async (id: string): Promise<IMessage | null> => {
+  try {
+    const message = await MessageModel.findById(id).populate(
+      'sender',
+      'username imageURL'
+    );
+    return message;
+  } catch (err) {
+    console.log(err);
+    throw new Error('Populate message error');
+  }
+};
+
+export const findRooms = async (userId: string): Promise<IRoomExtended[]> => {
+  try {
+    const rooms = await Room.find({ users: userId }).populate({
+      path: 'lastMessage',
+      populate: { path: 'sender', select: 'username imageURL' },
+    });
+    let data: IRoomExtended;
+    const result = [] as any;
+    for (const room of rooms) {
+      const sumUnreadMessages = await MessageModel.count({
+        receiver: userId,
+        isRead: false,
+        room: room.id,
+      });
+      data = {
+        ...room.toJSON(),
+        sum: sumUnreadMessages,
+      };
+      result.push(data);
+    }
+    return result;
+  } catch (err) {
+    console.log(err);
+    throw new Error('find room error');
   }
 };
 

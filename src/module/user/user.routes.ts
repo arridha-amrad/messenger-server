@@ -12,6 +12,7 @@ import {
   refreshToken,
   register,
   resetPassword,
+  searchUser,
 } from './controller/export.user.controller';
 
 import { verifyAuthToken } from '@utils/token/token';
@@ -27,4 +28,5 @@ router.get('/logout', logout);
 router.get('/google', googleOAuth);
 router.get('/refresh-token', refreshToken);
 router.get('/me', verifyAuthToken, me);
+router.get('/search', searchUser);
 export default router;

@@ -1,6 +1,9 @@
 import { Types } from 'mongoose';
 
 export type IRoomDoc = IRoom & { _id: Types.ObjectId };
+
+export type IRoomExtended = IRoom & { sum: number };
+
 export interface IRoom {
   id: string;
   users: Types.ObjectId[];
@@ -12,6 +15,7 @@ export interface IRoom {
 }
 
 export type IMessageDoc = IMessage & { _id: Types.ObjectId };
+
 export interface IMessage {
   sender: Types.ObjectId;
   receiver: Types.ObjectId;

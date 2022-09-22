@@ -1,17 +1,15 @@
-import { getUserIdFromAccToken } from '@root/utils/token/helpers';
+import { populateMessage } from './../../chat.services';
 import { Request, Response } from 'express';
+
+import { findRoom, saveMessage, saveRoom } from '@chat-module/chat.services';
 import { IRoomDoc } from '@chat-module/chat.types';
-import { saveRoom, findRoom, saveMessage } from '@chat-module/chat.services';
-import mongoose from 'mongoose';
+import { getUserIdFromAccToken } from '@utils/token/helpers';
+import toObjectId from '@utils/toObjectId';
 
 const sendMessage = async (req: Request, res: Response): Promise<void> => {
   const { text, toId, roomId } = req.body;
 
   const fromId = getUserIdFromAccToken(req);
-
-  if (typeof fromId === 'undefined') {
-    throw new Error('UnAuthenticated');
-  }
 
   let room: IRoomDoc;
 
@@ -25,10 +23,7 @@ const sendMessage = async (req: Request, res: Response): Promise<void> => {
       room = fetchedRoom;
     } else {
       const newRoom = await saveRoom({
-        users: [
-          new mongoose.Types.ObjectId(fromId),
-          new mongoose.Types.ObjectId(toId),
-        ],
+        users: [toObjectId(fromId), toObjectId(toId)],
       });
       room = newRoom;
     }
@@ -36,11 +31,12 @@ const sendMessage = async (req: Request, res: Response): Promise<void> => {
       receiver: toId,
       text,
       room: room._id,
-      sender: new mongoose.Types.ObjectId(fromId),
+      sender: toObjectId(fromId),
     });
-    room.lastMessage = new mongoose.Types.ObjectId(savedMessage.id);
+    room.lastMessage = toObjectId(savedMessage.id);
     await saveRoom(room);
-    res.status(200).json({ message: savedMessage });
+    const populatedMessage = await populateMessage(savedMessage.id);
+    res.status(200).json({ message: populatedMessage });
     return;
   } catch (err) {
     res.sendStatus(500);
