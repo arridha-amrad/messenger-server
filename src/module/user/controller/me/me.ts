@@ -4,6 +4,7 @@ import { findUserById, getData } from '@user-module/user.services';
 
 const me = async (req: Request, res: Response): Promise<void> => {
   const userId = getUserIdFromAccToken(req);
+
   if (typeof userId === 'undefined') {
     res.sendStatus(401);
     return;
